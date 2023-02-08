@@ -27,8 +27,21 @@ const InnerWarpper = styled(Box)`
   }
 `;
 
+const initialValue = {
+  fullname: "",
+  username: "",
+  password: "",
+};
+
 const Login = () => {
+  const [signUp, setsignUp] = useState(initialValue);
+
   const [account, toggleAccount] = useState("login");
+
+  const signUpHandler = (e) => {
+    setsignUp({ ...signUp, [e.target.name]: e.target.value });
+    console.log({ ...signUp, [e.target.name]: e.target.value });
+  };
 
   const toggleSighup = () => {
     toggleAccount("signup");
@@ -50,11 +63,23 @@ const Login = () => {
           </InnerWarpper>
         ) : (
           <InnerWarpper>
-            <TextField placeholder="Full Name" />
-            <TextField placeholder="username" />
-            <TextField placeholder="password" />
+            <TextField
+              onChange={(e) => signUpHandler(e)}
+              placeholder="Full Name"
+              name="fullname"
+            />
+            <TextField
+              onChange={(e) => signUpHandler(e)}
+              placeholder="username"
+              name="username"
+            />
+            <TextField
+              onChange={(e) => signUpHandler(e)}
+              placeholder="password"
+              name="password"
+            />
             <Button variant="contained"> Signup </Button>
-            <Button ariant="outlined" onClick={() => toggleAccount("login")}>
+            <Button variant="outlined" onClick={() => toggleAccount("login")}>
               Already Have An Account?
             </Button>
           </InnerWarpper>
