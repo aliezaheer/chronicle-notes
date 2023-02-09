@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Box, Button, TextField, styled } from "@mui/material";
+import createUser from "../api/api";
 
 const Container = styled(Box)`
   width: 400px;
@@ -33,13 +34,18 @@ const initialValue = {
   password: "",
 };
 
-const Login = () => {
-  const [signUp, setsignUp] = useState(initialValue);
+const logoImg = "https://cdn-icons-png.flaticon.com/512/881/881760.png";
 
+const Login = () => {
+  const [signUp, setSignUp] = useState(initialValue);
   const [account, toggleAccount] = useState("login");
 
+  const signupUserHandler = () => {
+    createUser();
+  };
+
   const signUpHandler = (e) => {
-    setsignUp({ ...signUp, [e.target.name]: e.target.value });
+    setSignUp({ ...signUp, [e.target.name]: e.target.value });
     console.log({ ...signUp, [e.target.name]: e.target.value });
   };
 
@@ -47,7 +53,6 @@ const Login = () => {
     toggleAccount("signup");
   };
 
-  const logoImg = "https://cdn-icons-png.flaticon.com/512/2065/2065254.png";
   return (
     <Container>
       <Box>
@@ -77,8 +82,11 @@ const Login = () => {
               onChange={(e) => signUpHandler(e)}
               placeholder="password"
               name="password"
+              type="password"
             />
-            <Button variant="contained"> Signup </Button>
+            <Button variant="contained" onClick={signupUserHandler}>
+              Signup
+            </Button>
             <Button variant="outlined" onClick={() => toggleAccount("login")}>
               Already Have An Account?
             </Button>
