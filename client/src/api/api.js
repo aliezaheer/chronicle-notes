@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_NOTIFICATION, SERVICE_URLS } from "../constants/config";
 
 const URL = "http://localhost:8000/";
 
@@ -21,9 +22,89 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => {
+    // Stop global loader here
     return porecessResponse(response);
   },
   (error) => {
-    return Promise.reject(processError(response));
+    // Stop global loader here in case of error
+    return Promise.reject(processError(error));
   }
 );
+
+//---------------------//
+// If success => return { isSuccess: true, data: Object}
+//If fail => return { isFaliure: true, status: string, msg: string, code: int}
+const porecessResponse = (response) => {
+  if (response?.status === 200) {
+    return { isSccess: true, data: response.data };
+  } else {
+    return {
+      isFaliure: true,
+      status: response?.status,
+      msg: response?.msg,
+      code: response?.code,
+    };
+  }
+};
+
+//---------------------//
+// If success => return { isSuccess: true, data: Object}
+//If fail => return { isFaliure: true, status: string, msg: string, code: int}
+const processError = () => {
+  if (error.response) {
+    //request made and server responded with a stus other
+    // that fails out of the range 200
+    console.log("Error in response: ", error.toJson());
+    return {
+      isError: true,
+      msg: API_NOTIFICATION.responseFaliure,
+      code: error.response.status,
+    };
+  } else if (error.request) {
+    // Request made but no response was recieved
+    console.log("Error in Request: ", error.toJson());
+    return {
+      isError: true,
+      msg: API_NOTIFICATION.requestFaliure,
+      code: "",
+    };
+  } else {
+    // Something happened in setting up request that triggers an error
+    console.log("Error in Network: ", error.toJson());
+    return {
+      isError: true,
+      msg: API_NOTIFICATION.networkFaliure,
+      code: "",
+    };
+  }
+};
+
+const API = {};
+
+for (const [key, value] of Object.entries(SERVICE_URLS)) {
+  API[key] = (body, showUploadProgress, showDownloadProgress) =>
+    axiosInstance({
+      method: value.method,
+      url: value.url,
+      data: body,
+      responseType: value.responseType,
+      onUploadProgress: (progressEvent) => {
+        if (showUploadProgress) {
+          let percentageCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          showUploadProgress(percentageCompleted);
+        }
+      },
+      onDownloadProgress: (progressEvent) => {
+        if (showDownloadProgress) {
+          let percentageCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          showDownloadProgress(percentageCompleted);
+        }
+      },
+    });
+}
+
+export { API };
