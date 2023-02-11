@@ -7,11 +7,14 @@ export const API_NOTIFICATION = {
     title: " Success",
     message: "Data successfully loaded",
   },
+
+  // Error in case of response fail
   responseFaliure: {
     title: "Error",
     message:
       "Error while Fetching response from the server, please try again later",
   },
+  // Error in case of request fail
   requestFaliure: {
     title: "Error",
     message: "Error while parsing request data",
@@ -24,6 +27,7 @@ export const API_NOTIFICATION = {
 };
 
 // API Service Call
+//SAPMLE API REQUEST
 // Need Service call: {url: "/", method: "POST/GET/PUT/DELETE" params: true/false, query: true/false}
 export const SERVICE_URLS = {
   userSignup: { url: "/signup", method: "POST" },

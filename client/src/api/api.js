@@ -1,29 +1,30 @@
 import axios from "axios";
 import { API_NOTIFICATION, SERVICE_URLS } from "../constants/config";
 
-const URL = "http://localhost:8000/";
+const API_URL = "http://localhost:8000";
 
 const axiosInstance = axios.create({
-  baseURL: URL,
+  baseURL: API_URL,
   timeout: 10000,
   headers: {
-    "Content-Type": "application/json",
+    "content-type": "application/json",
   },
 });
 
 axiosInstance.interceptors.request.use(
-  (config) => {
+  function (config) {
     return config;
   },
-  (error) => {
+  function (error) {
     return Promise.reject(error);
   }
 );
 
 axiosInstance.interceptors.response.use(
+  // below are two callback functions
   (response) => {
     // Stop global loader here
-    return porecessResponse(response);
+    return processResponse(response);
   },
   (error) => {
     // Stop global loader here in case of error
@@ -34,9 +35,9 @@ axiosInstance.interceptors.response.use(
 //---------------------//
 // If success => return { isSuccess: true, data: Object}
 //If fail => return { isFaliure: true, status: string, msg: string, code: int}
-const porecessResponse = (response) => {
+const processResponse = (response) => {
   if (response?.status === 200) {
-    return { isSccess: true, data: response.data };
+    return { isSuccess: true, data: response.data };
   } else {
     return {
       isFaliure: true,
@@ -50,29 +51,29 @@ const porecessResponse = (response) => {
 //---------------------//
 // If success => return { isSuccess: true, data: Object}
 //If fail => return { isFaliure: true, status: string, msg: string, code: int}
-const processError = () => {
+const processError = (error) => {
   if (error.response) {
-    //request made and server responded with a stus other
-    // that fails out of the range 200
-    console.log("Error in response: ", error.toJson());
+    //request made and server responded with other than 200 status
+    // that falls out of the range 200
+    console.log("Error in response: ", error.toJSON());
     return {
-      isError: true,
+      isFaliure: true,
       msg: API_NOTIFICATION.responseFaliure,
       code: error.response.status,
     };
   } else if (error.request) {
     // Request made but no response was recieved
-    console.log("Error in Request: ", error.toJson());
+    console.log("Error in Request: ", error.toJSON());
     return {
-      isError: true,
+      isFaliure: true,
       msg: API_NOTIFICATION.requestFaliure,
       code: "",
     };
   } else {
     // Something happened in setting up request that triggers an error
-    console.log("Error in Network: ", error.toJson());
+    console.log("Error in Network: ", error.toJSON());
     return {
-      isError: true,
+      isFaliure: true,
       msg: API_NOTIFICATION.networkFaliure,
       code: "",
     };

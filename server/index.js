@@ -2,9 +2,16 @@ const express = require("express");
 const connection = require("./database/db");
 const dotenv = require("dotenv");
 const Router = require("./routes/route");
+const cors = require("cors");
+const bodyParser = require("body-parser");
 
 dotenv.config();
+
 const app = express();
+
+app.use(cors());
+app.use(bodyParser.json({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", Router);
 

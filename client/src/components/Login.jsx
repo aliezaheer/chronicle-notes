@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Box, Button, TextField, styled } from "@mui/material";
-import createUser from "../api/api";
-
+import { Box, Button, TextField, styled, Typography } from "@mui/material";
+import { API } from "../api/api";
 const Container = styled(Box)`
   width: 400px;
   margin: 10% auto 0 auto;
@@ -28,6 +27,15 @@ const InnerWarpper = styled(Box)`
   }
 `;
 
+const Error = styled(Typography)`
+  font-size: 14px;
+  color: #ff9499;
+  line-height: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 600;
+`;
+
 const initialValue = {
   fullname: "",
   username: "",
@@ -39,20 +47,26 @@ const logoImg = "https://cdn-icons-png.flaticon.com/512/881/881760.png";
 const Login = () => {
   const [signUp, setSignUp] = useState(initialValue);
   const [account, toggleAccount] = useState("login");
-
-  const signupUserHandler = () => {
-    createUser();
-  };
+  const [error, setError] = useState("");
 
   const signUpHandler = (e) => {
     setSignUp({ ...signUp, [e.target.name]: e.target.value });
-    console.log({ ...signUp, [e.target.name]: e.target.value });
   };
 
   const toggleSighup = () => {
     toggleAccount("signup");
   };
 
+  const signupUserHandler = async () => {
+    let response = await API.userSignup(signUp);
+    if (response.isSuccess) {
+      setError("");
+      setSignUp(initialValue);
+      toggleAccount("login");
+    } else {
+      setError("Something went wrong. Please again late.");
+    }
+  };
   return (
     <Container>
       <Box>
@@ -61,6 +75,7 @@ const Login = () => {
           <InnerWarpper>
             <TextField placeholder="username" />
             <TextField placeholder="password" />
+            {error && <Error>{error}</Error>}
             <Button variant="contained"> Login </Button>
             <Button variant="outlined" onClick={() => toggleSighup()}>
               Create An Account
@@ -84,6 +99,8 @@ const Login = () => {
               name="password"
               type="password"
             />
+            {error && <Error>{error}</Error>}
+
             <Button variant="contained" onClick={signupUserHandler}>
               Signup
             </Button>
