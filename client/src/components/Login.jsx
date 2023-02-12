@@ -42,11 +42,17 @@ const initialValue = {
   password: "",
 };
 
+const loginInitialState = {
+  username: "",
+  password: "",
+};
+
 const logoImg = "https://cdn-icons-png.flaticon.com/512/881/881760.png";
 
 const Login = () => {
   const [signUp, setSignUp] = useState(initialValue);
   const [account, toggleAccount] = useState("login");
+  const [login, setLogin] = useState(loginInitialState);
   const [error, setError] = useState("");
 
   const signUpHandler = (e) => {
@@ -67,16 +73,41 @@ const Login = () => {
       setError("Something went wrong. Please again late.");
     }
   };
+
+  const onLoginHandler = () => {
+    setLogin({ ...login, [e.targer.name]: e.target.value });
+  };
+
+  const loginUser = async () => {
+    let response = await API.userLogin;
+    if (response.isSuccess) {
+      setError("");
+    } else {
+      setError("Something is wrong. Please try again later.");
+    }
+  };
   return (
     <Container>
       <Box>
         <Logo src={logoImg} alt="login" />
         {account === "login" ? (
           <InnerWarpper>
-            <TextField placeholder="username" />
-            <TextField placeholder="password" />
+            <TextField
+              placeholder="username"
+              value={login.username}
+              name="username"
+              onChange={(e) => onLoginHandler(e)}
+            />
+            <TextField
+              placeholder="password"
+              value={login.password}
+              name="password"
+              onChange={(e) => onLoginHandler(e)}
+            />
             {error && <Error>{error}</Error>}
-            <Button variant="contained"> Login </Button>
+            <Button variant="contained" onClick={loginUser}>
+              Login
+            </Button>
             <Button variant="outlined" onClick={() => toggleSighup()}>
               Create An Account
             </Button>
@@ -101,7 +132,7 @@ const Login = () => {
             />
             {error && <Error>{error}</Error>}
 
-            <Button variant="contained" onClick={signupUserHandler}>
+            <Button variant="contained" onClick={() => signupUserHandler}>
               Signup
             </Button>
             <Button variant="outlined" onClick={() => toggleAccount("login")}>
