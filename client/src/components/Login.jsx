@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Box, Button, TextField, styled, Typography } from "@mui/material";
+
 import { API } from "../api/api";
+import { DataContext } from "../context/DataProvider";
+
 const Container = styled(Box)`
   width: 400px;
   margin: 10% auto 0 auto;
@@ -55,6 +58,8 @@ const Login = () => {
   const [login, setLogin] = useState(loginInitialState);
   const [error, setError] = useState("");
 
+  const { setAccount } = useContext(DataContext);
+
   const signUpHandler = (e) => {
     setSignUp({ ...signUp, [e.target.name]: e.target.value });
   };
@@ -80,7 +85,7 @@ const Login = () => {
 
   const loginUser = async () => {
     let response = await API.userLogin(login);
-    console.log(response.data.accessToken);
+    console.log(response);
 
     if (response.isSuccess) {
       sessionStorage.setItem(
@@ -91,6 +96,10 @@ const Login = () => {
         "refreshToken",
         `Bearer ${response.data.refreshToken}`
       );
+      setAccount({
+        username: response.data.username,
+        name: response.data.fullname,
+      });
       setError(null);
     } else {
       setError("Something is wrong. Please try again later.");

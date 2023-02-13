@@ -52,7 +52,7 @@ exports.loginUser = async (req, res) => {
       return res.status(200).json({
         accessToken: accessToken,
         refreshToken: refreshToken,
-        name: user.fullname,
+        fullname: user.fullname,
         username: user.username,
       });
     } else {
