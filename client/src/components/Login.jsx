@@ -74,18 +74,29 @@ const Login = () => {
     }
   };
 
-  const onLoginHandler = () => {
-    setLogin({ ...login, [e.targer.name]: e.target.value });
+  const onLoginHandler = (e) => {
+    setLogin({ ...login, [e.target.name]: e.target.value });
   };
 
   const loginUser = async () => {
-    let response = await API.userLogin;
+    let response = await API.userLogin(login);
+    console.log(response.data.accessToken);
+
     if (response.isSuccess) {
-      setError("");
+      sessionStorage.setItem(
+        "accessToken",
+        `Bearer ${response.data.accessToken}`
+      );
+      sessionStorage.setItem(
+        "refreshToken",
+        `Bearer ${response.data.refreshToken}`
+      );
+      setError(null);
     } else {
       setError("Something is wrong. Please try again later.");
     }
   };
+
   return (
     <Container>
       <Box>
@@ -94,18 +105,23 @@ const Login = () => {
           <InnerWarpper>
             <TextField
               placeholder="username"
-              value={login.username}
               name="username"
+              value={login.username}
               onChange={(e) => onLoginHandler(e)}
             />
             <TextField
               placeholder="password"
-              value={login.password}
               name="password"
+              value={login.password}
               onChange={(e) => onLoginHandler(e)}
             />
             {error && <Error>{error}</Error>}
-            <Button variant="contained" onClick={loginUser}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                loginUser();
+              }}
+            >
               Login
             </Button>
             <Button variant="outlined" onClick={() => toggleSighup()}>
