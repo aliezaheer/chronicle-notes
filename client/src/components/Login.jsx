@@ -1,4 +1,6 @@
 import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Box, Button, TextField, styled, Typography } from "@mui/material";
 
 import { API } from "../api/api";
@@ -59,6 +61,7 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const { setAccount } = useContext(DataContext);
+  const navigate = useNavigate();
 
   const signUpHandler = (e) => {
     setSignUp({ ...signUp, [e.target.name]: e.target.value });
@@ -88,6 +91,8 @@ const Login = () => {
     console.log(response);
 
     if (response.isSuccess) {
+      setError(null);
+
       sessionStorage.setItem(
         "accessToken",
         `Bearer ${response.data.accessToken}`
@@ -98,9 +103,10 @@ const Login = () => {
       );
       setAccount({
         username: response.data.username,
-        name: response.data.fullname,
+        fullname: response.data.fullname,
       });
-      setError(null);
+
+      navigate("/");
     } else {
       setError("Something is wrong. Please try again later.");
     }
