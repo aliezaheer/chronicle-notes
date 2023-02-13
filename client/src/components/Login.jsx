@@ -54,7 +54,7 @@ const loginInitialState = {
 
 const logoImg = "https://cdn-icons-png.flaticon.com/512/881/881760.png";
 
-const Login = () => {
+const Login = ({ isUserAuthenticated }) => {
   const [signUp, setSignUp] = useState(initialValue);
   const [account, toggleAccount] = useState("login");
   const [login, setLogin] = useState(loginInitialState);
@@ -105,6 +105,7 @@ const Login = () => {
         username: response.data.username,
         fullname: response.data.fullname,
       });
+      isUserAuthenticated(true);
 
       navigate("/");
     } else {
@@ -121,13 +122,11 @@ const Login = () => {
             <TextField
               placeholder="username"
               name="username"
-              value={login.username}
               onChange={(e) => onLoginHandler(e)}
             />
             <TextField
               placeholder="password"
               name="password"
-              value={login.password}
               onChange={(e) => onLoginHandler(e)}
             />
             {error && <Error>{error}</Error>}
@@ -159,7 +158,6 @@ const Login = () => {
               onChange={(e) => signUpHandler(e)}
               placeholder="password"
               name="password"
-              type="password"
             />
             {error && <Error>{error}</Error>}
 
