@@ -1,4 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { useLocation } from "react-router-dom";
+
+import { DataContext } from "../../context/DataProvider";
+
+import { API } from "../../api/api";
 
 import {
   Box,
@@ -46,8 +51,6 @@ const Textarea = styled(TextareaAutosize)`
 
 // END OF the Style area
 
-const url = `https://images.unsplash.com/photo-1598256989800-fe5f95da9787?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80`;
-
 const initialPost = {
   title: "",
   description: "",
@@ -61,19 +64,29 @@ const CreatePost = () => {
   const [post, setPost] = useState(initialPost);
   const [file, setFile] = useState("");
 
+  const { account } = useContext(DataContext);
+
+  const location = useLocation();
+
+  const url = post.picture
+    ? post.picture
+    : `https://images.unsplash.com/photo-1598256989800-fe5f95da9787?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80`;
+
   useEffect(() => {
-    const getImage = () => {
+    const getImage = async () => {
       if (file) {
         const data = new FormData();
         data.append("name", file.name);
         data.append("file", file);
 
         // API CALL
-        // post.picture = "";
+        const response = await API.uploadFile(data);
+        post.picture = response.data;
       }
     };
     getImage();
-    post.categories;
+    post.categories = location.search?.split("=")[1] || "All";
+    post.username = account.username;
   }, [file]);
 
   const changeHandler = (e) => {
