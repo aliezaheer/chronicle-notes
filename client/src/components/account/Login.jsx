@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import { Box, Button, TextField, styled, Typography } from "@mui/material";
 
-import { API } from "../api/api";
-import { DataContext } from "../context/DataProvider";
+import { API } from "../../api/api";
+import { DataContext } from "../../context/DataProvider";
 
 const Container = styled(Box)`
   width: 400px;
@@ -122,11 +122,13 @@ const Login = ({ isUserAuthenticated }) => {
             <TextField
               placeholder="username"
               name="username"
+              value={login.username}
               onChange={(e) => onLoginHandler(e)}
             />
             <TextField
               placeholder="password"
               name="password"
+              value={login.password}
               onChange={(e) => onLoginHandler(e)}
             />
             {error && <Error>{error}</Error>}

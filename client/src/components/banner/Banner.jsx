@@ -2,9 +2,12 @@ import { styled, Box, Typography } from "@mui/material";
 
 const Image = styled(Box)`
   width: 100%;
-  background: url(https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg)
-    center/55% repeat-x #000;
-  height: 50vh;
+  background-image: url("https://images.unsplash.com/photo-1598256989800-fe5f95da9787?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"),
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-position: center center;
+  height: 45vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,8 +28,8 @@ const SubHeading = styled(Typography)`
 const Banner = () => {
   return (
     <Image>
-      <Heading>BLOG</Heading>
-      <SubHeading>Code for Interview</SubHeading>
+      <Heading>Chronicle</Heading>
+      <SubHeading>Medical Center</SubHeading>
     </Image>
   );
 };

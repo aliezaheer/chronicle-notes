@@ -10,9 +10,10 @@ import {
 import DataProvider from "./context/DataProvider";
 
 // components
-import Login from "./components/Login";
+import Login from "./components/account/Login";
 import HomePage from "./components/home/HomePage";
 import Header from "./components/header/Header";
+import CreatePost from "./components/create/CreatePost";
 
 const PrivateRoute = ({ isAuthenticated, ...props }) => {
   return isAuthenticated ? (
@@ -30,17 +31,25 @@ function App() {
   return (
     <DataProvider>
       <Router>
-        <div style={{ marginTop: 70 }}>
+        <div style={{ marginTop: 64 }}>
           <Routes>
             <Route
               path="/login"
               element={<Login isUserAuthenticated={isUserAuthenticated} />}
             />
+
             <Route
               path="/"
               element={<PrivateRoute isAuthenticated={isAuthenticated} />}
             >
               <Route path="/" element={<HomePage />} />
+            </Route>
+
+            <Route
+              path="/create"
+              element={<PrivateRoute isAuthenticated={isAuthenticated} />}
+            >
+              <Route path="/create" element={<CreatePost />} />
             </Route>
           </Routes>
         </div>
