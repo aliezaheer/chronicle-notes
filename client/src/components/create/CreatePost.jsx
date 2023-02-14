@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import {
   Box,
   FormControl,
@@ -42,8 +44,42 @@ const Textarea = styled(TextareaAutosize)`
   }
 `;
 
+// END OF the Style area
+
+const url = `https://images.unsplash.com/photo-1598256989800-fe5f95da9787?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80`;
+
+const initialPost = {
+  title: "",
+  description: "",
+  picture: "",
+  username: "",
+  categories: "",
+  createdDate: new Date(),
+};
+
 const CreatePost = () => {
-  const url = `https://images.unsplash.com/photo-1598256989800-fe5f95da9787?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80`;
+  const [post, setPost] = useState(initialPost);
+  const [file, setFile] = useState("");
+
+  useEffect(() => {
+    const getImage = () => {
+      if (file) {
+        const data = new FormData();
+        data.append("name", file.name);
+        data.append("file", file);
+
+        // API CALL
+        // post.picture = "";
+      }
+    };
+    getImage();
+    post.categories;
+  }, [file]);
+
+  const changeHandler = (e) => {
+    setPost({ ...post, [e.target.name]: e.target.value });
+  };
+
   return (
     <>
       <Container>
@@ -52,11 +88,29 @@ const CreatePost = () => {
           <label htmlFor="fileInput">
             <Add fontSize="large" color="primary" />
           </label>
-          <input type="file" id="fileInput" style={{ display: "none" }} />
-          <InputTextField placeholder="title" />
+          <input
+            type="file"
+            id="fileInput"
+            style={{ display: "none" }}
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+          <InputTextField
+            placeholder="title"
+            name="title"
+            onChange={() => {
+              changeHandler(e);
+            }}
+          />
           <Button variant="contained">Publish</Button>
         </StyledFormControl>
-        <Textarea minRows={5} placeholder="Tell your story..." />
+        <Textarea
+          minRows={5}
+          placeholder="Tell your story..."
+          name="description"
+          onChange={() => {
+            changeHandler(e);
+          }}
+        />
       </Container>
     </>
   );
