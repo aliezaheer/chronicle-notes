@@ -2,7 +2,7 @@ const express = require("express");
 const imageController = require("../controller/imageController");
 const signupController = require("../controller/userController");
 
-import upload from "../util/upload";
+const upload = require("../util/upload");
 
 const router = express.Router();
 

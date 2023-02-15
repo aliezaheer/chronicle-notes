@@ -70,7 +70,7 @@ const CreatePost = () => {
 
   const url = post.picture
     ? post.picture
-    : `https://images.unsplash.com/photo-1598256989800-fe5f95da9787?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80`;
+    : "https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80";
 
   useEffect(() => {
     const getImage = async () => {
@@ -110,7 +110,7 @@ const CreatePost = () => {
           <InputTextField
             placeholder="title"
             name="title"
-            onChange={() => {
+            onChange={(e) => {
               changeHandler(e);
             }}
           />
