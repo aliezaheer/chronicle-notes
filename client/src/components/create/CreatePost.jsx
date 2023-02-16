@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { DataContext } from "../../context/DataProvider";
 
@@ -67,6 +67,7 @@ const CreatePost = () => {
   const { account } = useContext(DataContext);
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const url = post.picture
     ? post.picture
@@ -93,6 +94,12 @@ const CreatePost = () => {
     setPost({ ...post, [e.target.name]: e.target.value });
   };
 
+  const savePost = async () => {
+    const response = await API.createPost(post);
+    if (response.isSuccess) {
+      navigate("/");
+    }
+  };
   return (
     <>
       <Container>
@@ -114,7 +121,14 @@ const CreatePost = () => {
               changeHandler(e);
             }}
           />
-          <Button variant="contained">Publish</Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              savePost();
+            }}
+          >
+            Publish
+          </Button>
         </StyledFormControl>
         <Textarea
           minRows={5}
