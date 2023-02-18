@@ -13,7 +13,7 @@ const HomePage = () => {
         <Grid item lg={2} sm={2} xs={12}>
           <Categories />
         </Grid>
-        <Grid item lg={2} sm={2} xs={12}>
+        <Grid container lg={10} sm={10} xs={12}>
           <Posts />
         </Grid>
       </Grid>
