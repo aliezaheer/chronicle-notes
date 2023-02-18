@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post("/signup", signupController.signupUser);
 router.post("/login", signupController.loginUser);
-router.get(
+router.post(
   "/create",
   jwtController.authenticateToken,
   postConroller.createPost
@@ -19,5 +19,7 @@ router.get(
 //Routes for Image file handling
 router.post("/file/upload", upload.single("file"), imageController.uploadImage);
 router.get("/file/:filename", imageController.getImage);
+
+// router.get("/posts", jwtController.authenticateToken, getAllPosts);
 
 module.exports = router;

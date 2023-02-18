@@ -134,7 +134,7 @@ const CreatePost = () => {
           minRows={5}
           placeholder="Tell your story..."
           name="description"
-          onChange={() => {
+          onChange={(e) => {
             changeHandler(e);
           }}
         />
