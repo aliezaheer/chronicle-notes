@@ -3,7 +3,7 @@ import { Grid } from "@mui/material";
 //components
 import Banner from "../banner/Banner";
 import Categories from "./categories";
-import Post from "./Post/post";
+import Posts from "./post/Posts";
 
 const HomePage = () => {
   return (
@@ -14,7 +14,7 @@ const HomePage = () => {
           <Categories />
         </Grid>
         <Grid item lg={2} sm={2} xs={12}>
-          <Post />
+          <Posts />
         </Grid>
       </Grid>
     </>

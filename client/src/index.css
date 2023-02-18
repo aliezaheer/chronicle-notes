@@ -16,3 +16,7 @@
 body {
   margin: 0;
 }
+
+.css-bjl4n6-MuiGrid-root {
+  max-width: 100% !important;
+}

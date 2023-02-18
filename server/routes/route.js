@@ -20,6 +20,10 @@ router.post(
 router.post("/file/upload", upload.single("file"), imageController.uploadImage);
 router.get("/file/:filename", imageController.getImage);
 
-// router.get("/posts", jwtController.authenticateToken, getAllPosts);
+router.get(
+  "/posts",
+  jwtController.authenticateToken,
+  postConroller.getAllPosts
+);
 
 module.exports = router;
