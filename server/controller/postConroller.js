@@ -12,8 +12,14 @@ exports.createPost = async (req, res) => {
 };
 
 exports.getAllPosts = async (req, res) => {
+  let category = req.query.category;
+  let posts;
   try {
-    let posts = await Post.find({});
+    if (category) {
+      posts = await Post.find({ categories: category });
+    } else {
+      posts = await Post.find({});
+    }
 
     return res.status(200).json(posts);
   } catch (error) {
