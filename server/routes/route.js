@@ -26,4 +26,6 @@ router.get(
   postConroller.getAllPosts
 );
 
+router.get("/post/:id", jwtController.authenticateToken, postConroller.getPost);
+
 module.exports = router;
