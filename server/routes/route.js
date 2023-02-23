@@ -28,4 +28,10 @@ router.get(
 
 router.get("/post/:id", jwtController.authenticateToken, postConroller.getPost);
 
+router.put(
+  "/update",
+  jwtController.authenticateToken,
+  postConroller.updatePost
+);
+
 module.exports = router;
