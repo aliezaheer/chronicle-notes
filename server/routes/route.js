@@ -29,9 +29,14 @@ router.get(
 router.get("/post/:id", jwtController.authenticateToken, postConroller.getPost);
 
 router.put(
-  "/update",
+  "/update/:id",
   jwtController.authenticateToken,
   postConroller.updatePost
+);
+router.delete(
+  "/delete/:id",
+  jwtController.authenticateToken,
+  postConroller.deletePost
 );
 
 module.exports = router;

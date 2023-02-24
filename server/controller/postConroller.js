@@ -51,3 +51,18 @@ exports.updatePost = async (request, response) => {
     response.status(500).json(error);
   }
 };
+
+exports.deletePost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    if (!post) {
+      return res.status(404).json({ msg: "post not found" });
+    }
+    await post.delete();
+
+    return res.status(200).json({ msg: "post deleted successfully" });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
