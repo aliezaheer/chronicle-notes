@@ -21,9 +21,12 @@ const Image = styled("img")({
   objectFit: "cover",
 });
 
-const Container = styled(Box)`
-  margin: 50px 100px;
-`;
+const Container = styled(Box)(({ theme }) => ({
+  margin: "50px 100px",
+  [theme.breakpoints.down("md")]: {
+    margin: 0,
+  },
+}));
 
 const StyledFormControl = styled(FormControl)`
   margin-top: 10px;
