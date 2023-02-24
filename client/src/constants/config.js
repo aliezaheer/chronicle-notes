@@ -38,4 +38,5 @@ export const SERVICE_URLS = {
   getPostById: { url: "/post", method: "GET", query: true },
   updatePost: { url: "update", method: "PUT", query: true },
   deleteBlog: { url: "delete", method: "DELETE", query: true },
+  newComment: { url: "/comment/new", method: "POST" },
 };
