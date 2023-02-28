@@ -39,4 +39,5 @@ export const SERVICE_URLS = {
   updatePost: { url: "update", method: "PUT", query: true },
   deleteBlog: { url: "delete", method: "DELETE", query: true },
   newComment: { url: "/comment/new", method: "POST" },
+  getAllComments: { url: "comments", method: "GET", query: true },
 };

@@ -48,5 +48,10 @@ router.post(
   jwtController.authenticateToken,
   commentController.newComment
 );
+router.get(
+  "/comments/:id",
+  jwtController.authenticateToken,
+  commentController.getComments
+);
 
 module.exports = router;
