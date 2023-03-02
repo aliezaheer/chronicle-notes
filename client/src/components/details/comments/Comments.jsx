@@ -5,8 +5,8 @@ import { DataContext } from "../../../context/DataProvider";
 
 import { API } from "../../../api/api";
 
-//components
-// import Comment from "./Comment";
+// components
+import Comment from "./Comment";
 
 const Container = styled(Box)`
   margin-top: 100px;

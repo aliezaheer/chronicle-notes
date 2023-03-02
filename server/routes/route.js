@@ -54,4 +54,10 @@ router.get(
   commentController.getComments
 );
 
+router.delete(
+  "/comment/delete/:id",
+  jwtController.authenticateToken,
+  commentController.deleteComment
+);
+
 module.exports = router;
