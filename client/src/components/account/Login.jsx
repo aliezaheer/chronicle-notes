@@ -163,7 +163,7 @@ const Login = ({ isUserAuthenticated }) => {
             />
             {error && <Error>{error}</Error>}
 
-            <Button variant="contained" onClick={() => signupUserHandler}>
+            <Button variant="contained" onClick={() => signupUserHandler()}>
               Signup
             </Button>
             <Button variant="outlined" onClick={() => toggleAccount("login")}>
