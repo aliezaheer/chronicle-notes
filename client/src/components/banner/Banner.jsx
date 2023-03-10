@@ -1,8 +1,11 @@
+import { useContext } from "react";
+import { DataContext } from "../../context/DataProvider";
+
 import { styled, Box, Typography } from "@mui/material";
 
 const Image = styled(Box)`
   width: 100%;
-  background-image: url("https://images.unsplash.com/photo-1598256989800-fe5f95da9787?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"),
+  background-image: url("https://img.freepik.com/free-photo/abstract-grunge-decorative-relief-navy-blue-stucco-wall-texture-wide-angle-rough-colored-background_1258-28311.jpg?w=1380&t=st=1678480040~exp=1678480640~hmac=2518140ec8600a1a21b30dca89b8221cbf6ab6a5621e32b9927a2d8e22f71184"),
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
   background-blend-mode: overlay;
   background-size: cover;
@@ -26,10 +29,15 @@ const SubHeading = styled(Typography)`
 `;
 
 const Banner = () => {
+  const { account } = useContext(DataContext);
+  const { fullname } = account;
   return (
     <Image>
-      <Heading>Chronicle</Heading>
-      <SubHeading>Medical Center</SubHeading>
+      <Heading>
+        Welcome
+        <br /> <b style={{ color: "#333", background: "#fff" }}>{fullname}</b>
+      </Heading>
+      <SubHeading>Fell free to add memories</SubHeading>
     </Image>
   );
 };

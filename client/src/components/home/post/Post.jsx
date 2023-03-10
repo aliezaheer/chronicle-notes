@@ -5,7 +5,7 @@ const Container = styled(Box)`
   border: 1px solid #d3cede;
   border-radius: 6px;
   margin: 12px;
-  height: 350px;
+  height: 390px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,7 +34,7 @@ const Details = styled(Typography)`
 const Image = styled("img")({
   width: "100%",
   objectFit: "cover",
-  height: 150,
+  height: 240,
 });
 
 const Post = ({ post }) => {
