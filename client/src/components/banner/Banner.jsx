@@ -37,7 +37,7 @@ const Banner = () => {
         Welcome
         <br /> <b style={{ color: "#333", background: "#fff" }}>{fullname}</b>
       </Heading>
-      <SubHeading>Fell free to add memories</SubHeading>
+      <SubHeading>Feel free to add memories</SubHeading>
     </Image>
   );
 };

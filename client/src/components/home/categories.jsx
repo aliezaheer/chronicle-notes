@@ -28,6 +28,11 @@ const StyledLink = styled(Link)`
   color: inherit;
 `;
 
+const Image = styled("img")({
+  width: "10%",
+  paddingRight: "21px",
+});
+
 const Categories = () => {
   const [searchParams] = useSearchParams();
   const category = searchParams.get("category");
@@ -40,12 +45,17 @@ const Categories = () => {
       >
         <StyledButton variant="contained">Create Blog</StyledButton>
       </Link>
-
       <StyledTable>
         <TableHead>
           <TableRow>
             <TableCell>
-              <StyledLink to={"/"}>All Categories</StyledLink>
+              <StyledLink to={"/"}>
+                <Image
+                  src="https://cdn-icons-png.flaticon.com/512/5393/5393437.png"
+                  alt=""
+                />
+                All Categories
+              </StyledLink>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -54,7 +64,10 @@ const Categories = () => {
             <TableRow key={category.id}>
               <TableCell>
                 <StyledLink to={`/?category=${category.type}`}>
-                  {category.type}
+                  <div className="iconDiv">
+                    <Image src={category.icon} alt="" />
+                    {category.type}
+                  </div>
                 </StyledLink>
               </TableCell>
             </TableRow>
