@@ -1,11 +1,9 @@
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 
-const connection = async (USERNAME, PASSWORD) => {
+const connection = async (URL) => {
   try {
-    await mongoose.connect(
-      `mongodb+srv://${USERNAME}:${PASSWORD}@cluster0.yk9wmgn.mongodb.net/?retryWrites=true&w=majority`
-    );
+    await mongoose.connect(URL, { useNewUrlParser: true });
     console.log("DB CONNECTED");
   } catch (error) {
     console.log(`DB connection: ${error}`);
