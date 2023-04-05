@@ -9,6 +9,9 @@
     "client-build": "cd client && npm run build",
     "heroku-postbuild": "npm run client-install && npm run client-build"
   },
+  "engines": {
+    "node": "v16.16.0"
+  },
   "author": "Ali Zaheer",
   "license": "ISC",
   "dependencies": {
