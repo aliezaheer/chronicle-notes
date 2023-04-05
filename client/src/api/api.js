@@ -30,7 +30,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   // below are two callback functions
   (response) => {
-    // Stop global loader here
+    // Stop global loader here~
     return processResponse(response);
   },
   (error) => {
